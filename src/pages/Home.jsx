@@ -5,6 +5,7 @@ import BrandMarquee from "../components/sections/BrandMarquee";
 import ServicesPreview from "../components/sections/ServicesPreview";
 import WhyUs from "../components/sections/WhyUs";
 import Inspection from "../components/sections/Inspection";
+import Workshop from "../components/sections/Workshop";
 import Process from "../components/sections/Process";
 import Estimate from "../components/sections/Estimate";
 import Testimonials from "../components/sections/Testimonials";
@@ -27,6 +28,7 @@ export default function Home() {
       <ServicesPreview />
       <WhyUs />
       <Inspection />
+      <Workshop />
       <Process />
       <Estimate />
       <Testimonials />

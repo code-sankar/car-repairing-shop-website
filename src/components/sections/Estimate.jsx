@@ -1,21 +1,15 @@
 import { useMemo, useState } from "react";
-import { ArrowRight, Car, Check, Info } from "lucide-react";
+import { ArrowRight, Check, Info } from "lucide-react";
 import { packages, addOns } from "../../lib/data/pricing";
 import { price, site } from "../../lib/siteConfig";
+import { bodyTypes } from "../../lib/carTypes";
 import { cn } from "../../lib/cn";
 import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
 import Button from "../ui/Button";
 import AnimatedNumber from "../ui/AnimatedNumber";
-
-/** Body-style multipliers, the way a real workshop prices labour. */
-const bodyTypes = [
-  { id: "hatchback", label: "Hatchback", example: "Swift, i20, Altroz", factor: 1 },
-  { id: "sedan", label: "Sedan", example: "City, Verna, Slavia", factor: 1.15 },
-  { id: "suv", label: "SUV / MUV", example: "Creta, Thar, Innova", factor: 1.35 },
-  { id: "luxury", label: "Luxury", example: "BMW, Merc, Audi", factor: 1.85 },
-];
+import CarSilhouette from "../art/CarSilhouette";
 
 export default function Estimate() {
   const [body, setBody] = useState(bodyTypes[0]);
@@ -53,29 +47,35 @@ export default function Estimate() {
                 Your car
               </legend>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                {bodyTypes.map((type) => (
-                  <button
-                    key={type.id}
-                    type="button"
-                    onClick={() => setBody(type)}
-                    aria-pressed={body.id === type.id}
-                    className={cn(
-                      "flex items-center gap-4 rounded-xl border p-4 text-left transition-all duration-300",
-                      body.id === type.id
-                        ? "border-brand-500 bg-brand-500/10"
-                        : "border-white/10 bg-ink-950/50 hover:border-white/25",
-                    )}
-                  >
-                    <Car
-                      size={22}
-                      className={body.id === type.id ? "text-brand-400" : "text-ink-500"}
-                    />
-                    <span className="min-w-0">
-                      <span className="block font-semibold text-white">{type.label}</span>
-                      <span className="block truncate text-xs text-ink-400">{type.example}</span>
-                    </span>
-                  </button>
-                ))}
+                {bodyTypes.map((type) => {
+                  const on = body.id === type.id;
+                  return (
+                    <button
+                      key={type.id}
+                      type="button"
+                      onClick={() => setBody(type)}
+                      aria-pressed={on}
+                      className={cn(
+                        "group/type flex flex-col rounded-xl border p-4 text-left transition-all duration-300",
+                        on
+                          ? "border-brand-500 bg-brand-500/10"
+                          : "border-white/10 bg-ink-950/50 hover:border-white/25",
+                      )}
+                    >
+                      <CarSilhouette
+                        type={type.id}
+                        className={cn(
+                          "h-16 transition-colors duration-300",
+                          on ? "text-brand-400" : "text-ink-500 group-hover/type:text-ink-300",
+                        )}
+                      />
+                      <span className="mt-3 min-w-0">
+                        <span className="block font-semibold text-white">{type.label}</span>
+                        <span className="block truncate text-xs text-ink-400">{type.example}</span>
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </fieldset>
           </Reveal>

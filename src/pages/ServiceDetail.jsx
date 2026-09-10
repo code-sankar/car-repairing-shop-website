@@ -9,6 +9,7 @@ import Reveal from "../components/ui/Reveal";
 import Button from "../components/ui/Button";
 import ServiceCard from "../components/ui/ServiceCard";
 import { CornerMarks } from "../components/art/Texture";
+import ServiceArt from "../components/art/ServiceArt";
 
 export default function ServiceDetail() {
   const { slug } = useParams();
@@ -88,14 +89,27 @@ export default function ServiceDetail() {
           {/* ---- Sticky summary ----------------------------------- */}
           <div className="lg:col-span-5">
             <Reveal direction="left" delay={0.12} className="lg:sticky lg:top-28">
-              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-ink-800 to-ink-950 p-7">
-                <CornerMarks className="m-4" />
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-ink-800 to-ink-950">
+                {/* The part this service actually touches */}
+                <div className="relative border-b border-white/8 bg-ink-950/50 px-7 pb-6 pt-8">
+                  <CornerMarks className="m-4" />
+                  <div className="mx-auto aspect-square w-44 text-brand-400">
+                    <ServiceArt
+                      slug={slug}
+                      fallback={
+                        <span className="grid size-full place-items-center">
+                          <Icon size={56} strokeWidth={1.4} />
+                        </span>
+                      }
+                    />
+                  </div>
+                  <p className="mt-4 text-center font-display text-xs font-semibold uppercase tracking-[0.24em] text-ink-500">
+                    {service.name}
+                  </p>
+                </div>
 
-                <span className="grid size-16 place-items-center rounded-xl border border-brand-500/30 bg-brand-500/10 text-brand-400">
-                  <Icon size={30} strokeWidth={1.6} />
-                </span>
-
-                <dl className="mt-7 divide-y divide-white/8">
+                <div className="p-7">
+                <dl className="divide-y divide-white/8">
                   {service.from > 0 && (
                     <div className="flex items-baseline justify-between gap-4 py-3.5">
                       <dt className="text-ink-400">Starting price</dt>
@@ -131,6 +145,7 @@ export default function ServiceDetail() {
                 <p className="mt-4 text-center text-xs text-ink-500">
                   No payment now. You approve the estimate first.
                 </p>
+                </div>
               </div>
             </Reveal>
           </div>

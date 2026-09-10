@@ -122,8 +122,20 @@ export default function Hero() {
               </span>
             </div>
 
-            <div className="relative">
+            <div className="relative overflow-hidden rounded-2xl">
               <HeroCar className="drop-shadow-2xl" />
+
+              {/* Scanning bar, to match the "live inspection" framing */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 h-16 animate-scan bg-gradient-to-b from-transparent via-volt-400/25 to-transparent"
+              />
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 h-16 animate-scan"
+              >
+                <span className="absolute inset-x-0 bottom-0 h-px bg-volt-400/70" />
+              </span>
 
               {readouts.map((r, i) => (
                 <motion.div

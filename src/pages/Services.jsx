@@ -4,6 +4,8 @@ import PageHero from "../components/ui/PageHero";
 import Section from "../components/ui/Section";
 import ServiceCard from "../components/ui/ServiceCard";
 import Reveal from "../components/ui/Reveal";
+import CarSilhouette from "../components/art/CarSilhouette";
+import { bodyTypes } from "../lib/carTypes";
 import Process from "../components/sections/Process";
 import CTABand from "../components/sections/CTABand";
 import FAQ from "../components/sections/FAQ";
@@ -23,7 +25,26 @@ export default function Services() {
         title={<>Twelve ways we<br />keep you moving</>}
         lead="Every line below is quoted before the work starts and carries the same 12-month warranty on parts and labour."
         crumbs={[{ label: "Services" }]}
-      />
+      >
+        <Reveal delay={0.24}>
+          <div className="mt-12 grid grid-cols-2 gap-4 border-t border-white/8 pt-8 sm:grid-cols-4">
+            {bodyTypes.map((type, i) => (
+              <div key={type.id} className="flex flex-col items-center">
+                <CarSilhouette
+                  type={type.id}
+                  className={i === 0 ? "h-14 text-brand-500/70" : "h-14 text-ink-600"}
+                />
+                <span className="mt-2 font-display text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
+                  {type.label}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-center text-sm text-ink-500">
+            Every body type, every mainstream make — priced from the same rate card.
+          </p>
+        </Reveal>
+      </PageHero>
 
       <Section tone="dark">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

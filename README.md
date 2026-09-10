@@ -94,13 +94,39 @@ and the domain in `public/robots.txt`.
 
 - Route-level code splitting; the home page ships alone and every other route is
   fetched on navigation.
-- No image requests. The car illustrations, blueprint, gallery covers, team
-  monograms and location panel are all inline SVG, so the site is sharp on any
-  display and loads instantly.
+- No image requests. Every visual is inline SVG authored in code, so the site is
+  sharp on any display and loads instantly.
 - `prefers-reduced-motion` respected globally, in CSS and in every Framer Motion
   component.
 - Keyboard-navigable throughout: skip link, focus-visible rings, real button and
   `aria` semantics on the accordion, carousel, hotspots and comparison slider.
+
+---
+
+## The artwork
+
+There is not a single photograph or icon font in the build. Everything is drawn
+as SVG in `src/components/art/`, which keeps the site sharp at any resolution,
+re-themeable from the same CSS variables as the rest of the design system, and
+free of third-party image requests.
+
+| Component | What it draws | Where it appears |
+| --- | --- | --- |
+| `CarSilhouette` | Four body types — hatchback, sedan, SUV, luxury — with glazing, pillars and door handles | Estimator, booking form, services masthead, footer watermark |
+| `ServiceArt` | Twelve part illustrations: engine, OBD scanner, brake disc and caliper, condenser, spray gun, wheel and camber, battery, polisher, gear pair, claim shield, inspection lens, tow truck | Service cards, service detail pages |
+| `WorkshopScene` | The floor — a car raised on a two-post lift, tool wall, roller cabinet, oil drain, tyre stack | Home workshop section, About page |
+| `HeroCar` | Detailed side profile with tread blocks, calipers, glazing and a floor reflection | Hero panel, 404 |
+| `BlueprintCar` | Technical line drawing with a wheelbase dimension rule | Inspection hotspot diagram |
+| `WorkArt` | Six generated case-study covers, one composition per service category | Gallery |
+| `TyreTrack`, `Texture`, `Gauge`, `MapPanel` | Tread-mark rules, grids and glows, instrument gauge, location panel | Throughout |
+
+To swap in the client's own photography later, each of these is a single
+component with a fixed aspect ratio — replace the internals and every usage
+follows.
+
+To change the body types the site prices against, edit `src/lib/carTypes.js`.
+That one list drives the estimator's labour multipliers, the booking form, the
+services masthead and the silhouette artwork.
 
 ---
 

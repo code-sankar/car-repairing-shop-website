@@ -10,7 +10,7 @@ import Counter from "../components/ui/Counter";
 import Team from "../components/sections/Team";
 import Testimonials from "../components/sections/Testimonials";
 import CTABand from "../components/sections/CTABand";
-import HeroCar from "../components/art/HeroCar";
+import WorkshopScene from "../components/art/WorkshopScene";
 import { CornerMarks, Glow } from "../components/art/Texture";
 
 const milestones = [
@@ -101,7 +101,7 @@ export default function About() {
           <Reveal direction="left" delay={0.15} className="lg:col-span-6">
             <div className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-ink-800/80 to-ink-950 p-6 sm:p-8">
               <CornerMarks className="m-4" />
-              <HeroCar />
+              <WorkshopScene className="text-ink-300" carType="sedan" bay="BAY 01" />
               <div className="mt-4 grid grid-cols-2 gap-4 border-t border-white/8 pt-6">
                 {stats.slice(0, 2).map((s) => (
                   <div key={s.label}>

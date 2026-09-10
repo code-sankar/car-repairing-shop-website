@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Clock } from "lucide-react";
 import { price } from "../../lib/siteConfig";
+import ServiceArt from "../art/ServiceArt";
 import { cn } from "../../lib/cn";
 
 /**
@@ -29,6 +30,14 @@ export default function ServiceCard({ service, className }) {
           isVolt ? "bg-volt-500/25" : "bg-brand-500/25",
         )}
       />
+
+      {/* The part this service touches, sitting behind the copy */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-8 -right-8 size-44 text-white opacity-[0.07] transition-all duration-500 group-hover:-translate-y-1 group-hover:opacity-20"
+      >
+        <ServiceArt slug={service.slug} strokeWidth={5} />
+      </span>
 
       <div className="relative flex items-start justify-between">
         <span

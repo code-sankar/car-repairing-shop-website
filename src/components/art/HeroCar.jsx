@@ -6,13 +6,28 @@ function Wheel({ cx, cy, spin, uid }) {
   return (
     <g>
       <circle cx={cx} cy={cy} r="64" fill={`url(#${uid}-tire)`} />
+      {/* Tread blocks around the shoulder */}
+      <g stroke="#05070a" strokeWidth="3" opacity="0.75">
+        {Array.from({ length: 32 }, (_, i) => (
+          <path
+            key={i}
+            d={`M ${cx} ${cy - 64} v 9`}
+            transform={`rotate(${i * 11.25} ${cx} ${cy})`}
+          />
+        ))}
+      </g>
       <circle cx={cx} cy={cy} r="64" fill="none" stroke="#05070a" strokeWidth="2" />
+      <circle cx={cx} cy={cy} r="52" fill="none" stroke="#151b23" strokeWidth="2" opacity="0.9" />
       <circle cx={cx} cy={cy} r="49" fill="#0d1117" />
 
       {/* Brake disc and caliper visible through the spokes */}
       <circle cx={cx} cy={cy} r="35" fill="#39434f" />
       <circle cx={cx} cy={cy} r="35" fill="none" stroke="#5a6675" strokeWidth="1.5" />
-      <rect x={cx - 42} y={cy - 15} width="14" height="30" rx="5" fill="var(--color-brand-600)" />
+      <path
+        d={`M ${cx - 44} ${cy - 18} a 40 40 0 0 0 0 36 h 12 a 26 26 0 0 1 0 -36 z`}
+        fill="var(--color-brand-600)"
+      />
+      <path d={`M ${cx - 40} ${cy - 8} h 8 M ${cx - 40} ${cy + 4} h 8`} stroke="#0d1117" strokeWidth="2" opacity="0.6" />
 
       <g
         className={spin ? "animate-spin-slow" : undefined}

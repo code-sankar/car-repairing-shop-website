@@ -4,6 +4,7 @@ import { ArrowRight, Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 import { formatAddress, nav, site } from "../../lib/siteConfig";
 import { services } from "../../lib/data/services";
 import { HazardStrip } from "../art/Texture";
+import CarSilhouette from "../art/CarSilhouette";
 import SocialIcon from "./SocialIcon";
 import Logo from "./Logo";
 import Button from "../ui/Button";
@@ -20,8 +21,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-ink-900">
+    <footer className="relative overflow-hidden bg-ink-900">
       <HazardStrip />
+      <CarSilhouette
+        type="suv"
+        className="pointer-events-none absolute -bottom-6 right-0 hidden w-[38rem] text-white opacity-[0.035] lg:block"
+        ground={false}
+      />
 
       {/* Booking prompt straddling the footer edge */}
       <div className="shell -mt-px pt-16">

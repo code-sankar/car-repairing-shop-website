@@ -10,17 +10,19 @@ import useSeo from "../hooks/useSeo";
 import { services } from "../lib/data/services";
 import { packages } from "../lib/data/pricing";
 import { formatAddress, price, site } from "../lib/siteConfig";
+import { bodyTypes, bodyTypeLabel } from "../lib/carTypes";
 import { cn } from "../lib/cn";
 import PageHero from "../components/ui/PageHero";
 import Section from "../components/ui/Section";
 import Reveal from "../components/ui/Reveal";
 import Button from "../components/ui/Button";
 import Field from "../components/ui/Field";
+import CarSilhouette from "../components/art/CarSilhouette";
 import { inputClass, textareaClass } from "../lib/formStyles";
 
 const steps = [
   { id: 0, label: "Service", icon: Car, fields: ["service", "handover"] },
-  { id: 1, label: "Vehicle", icon: Car, fields: ["make", "model", "year", "registration"] },
+  { id: 1, label: "Vehicle", icon: Car, fields: ["make", "model", "year", "registration", "body"] },
   { id: 2, label: "Slot", icon: Calendar, fields: ["date", "slot"] },
   { id: 3, label: "Contact", icon: User, fields: ["name", "phone", "email"] },
 ];
@@ -60,6 +62,7 @@ export default function Book() {
       package: state?.package || "complete",
       handover: "pickup",
       fuel: "Petrol",
+      body: state?.body || "hatchback",
       slot: "9:30 AM",
       make: "", model: "", year: "", registration: "",
       date: "", name: "", phone: "", email: "", notes: "",
@@ -113,6 +116,7 @@ export default function Book() {
               ["Service", chosenService?.name],
               isPeriodic && ["Package", `${chosenPackage?.name} · ${price(chosenPackage?.price)}`],
               ["Handover", values.handover === "pickup" ? "Free doorstep pickup" : "Drop-off at workshop"],
+              ["Body type", bodyTypeLabel(values.body)],
               ["Registration", values.registration.toUpperCase()],
               ["We will call", values.phone],
             ]
@@ -321,6 +325,34 @@ export default function Book() {
                           {fuels.map((f) => <option key={f}>{f}</option>)}
                         </select>
                       </Field>
+
+                      <fieldset className="sm:col-span-2">
+                        <legend className="mb-3 text-sm font-semibold text-white">Body type</legend>
+                        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                          {bodyTypes.map((b) => {
+                            const on = values.body === b.id;
+                            return (
+                              <label
+                                key={b.id}
+                                className={cn(
+                                  "group/body cursor-pointer rounded-xl border p-3 text-center transition-all duration-300",
+                                  on ? "border-brand-500 bg-brand-500/10" : "border-white/12 hover:border-white/28",
+                                )}
+                              >
+                                <input type="radio" value={b.id} className="sr-only" {...register("body")} />
+                                <CarSilhouette
+                                  type={b.id}
+                                  className={cn(
+                                    "h-12 transition-colors duration-300",
+                                    on ? "text-brand-400" : "text-ink-500 group-hover/body:text-ink-300",
+                                  )}
+                                />
+                                <span className="mt-2 block text-xs font-semibold text-white">{b.label}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </fieldset>
                     </div>
                   )}
 
@@ -454,6 +486,7 @@ export default function Book() {
                     isPeriodic && ["Package", chosenPackage?.name],
                     ["Handover", values.handover === "pickup" ? "Doorstep pickup" : "Drop-off"],
                     ["Vehicle", [values.make, values.model, values.year].filter(Boolean).join(" ") || "—"],
+                    ["Body type", bodyTypeLabel(values.body)],
                     ["Registration", values.registration ? values.registration.toUpperCase() : "—"],
                     ["Date", values.date || "—"],
                     ["Time", values.slot],

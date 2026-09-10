@@ -3,12 +3,15 @@ import { site } from "../../lib/siteConfig";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
 import { GridBackdrop, Glow } from "../art/Texture";
+import TyreTrack from "../art/TyreTrack";
 
 export default function CTABand() {
   return (
     <section className="noise relative overflow-hidden bg-ink-950 py-20 sm:py-24">
       <GridBackdrop />
       <Glow className="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" size={820} opacity={0.16} />
+      <TyreTrack className="absolute inset-x-0 top-16 text-brand-500/20" height={72} />
+      <TyreTrack className="absolute inset-x-0 bottom-12 text-white/8" height={58} />
 
       <div className="shell relative z-10">
         <Reveal>
