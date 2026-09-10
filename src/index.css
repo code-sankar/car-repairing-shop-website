@@ -1,0 +1,217 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Apex Auto Works — Design System
+   Single source of truth for colour, type, motion and texture.
+   ============================================================ */
+
+@theme {
+  /* Neutrals: cool, slightly blue-shifted graphite ------------ */
+  --color-ink-50: #f5f7fa;
+  --color-ink-100: #e8ecf2;
+  --color-ink-200: #cfd6e0;
+  --color-ink-300: #a7b2c2;
+  --color-ink-400: #6f7c8f;
+  --color-ink-500: #4b5666;
+  --color-ink-600: #333c49;
+  --color-ink-700: #232b36;
+  --color-ink-800: #171e27;
+  --color-ink-900: #10161d;
+  --color-ink-950: #0a0d12;
+
+  /* Brand: signal orange — tools, safety, energy -------------- */
+  --color-brand-50: #fff5ed;
+  --color-brand-100: #ffe6d4;
+  --color-brand-200: #ffc8a8;
+  --color-brand-300: #ffa270;
+  --color-brand-400: #ff7f3d;
+  --color-brand-500: #ff6a00;
+  --color-brand-600: #e85400;
+  --color-brand-700: #bf3f05;
+  --color-brand-800: #97330c;
+  --color-brand-900: #7a2c0d;
+
+  /* Diagnostic cyan — used sparingly for tech/data cues ------- */
+  --color-volt-300: #7ee8fa;
+  --color-volt-400: #38d9f0;
+  --color-volt-500: #16bfd8;
+
+  --font-display: "Barlow Condensed", "Oswald", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.6s ease-out infinite;
+  --animate-sweep: sweep 3.4s ease-in-out infinite;
+  --animate-blink: blink 1.9s steps(1, end) infinite;
+  --animate-rise: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.75); opacity: 0.85; }
+  80%, 100% { transform: scale(2.1); opacity: 0; }
+}
+@keyframes sweep {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  60%, 100% { transform: translateX(320%) skewX(-18deg); }
+}
+@keyframes blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0.18; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------------------- */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    scroll-margin-top: 6rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 text-ink-200 font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight text-white;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  /* Visible, on-brand focus ring for keyboard users only */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-brand-500);
+    color: #fff;
+  }
+
+  /* Slim custom scrollbar (progressive enhancement) */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-ink-950); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-700);
+    border-radius: 99px;
+    border: 2px solid var(--color-ink-950);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-ink-600); }
+}
+
+@layer components {
+  /* Section shell — consistent rhythm across every page */
+  .shell {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Small uppercase label that sits above a heading */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-[0.28em] text-brand-400;
+  }
+
+  .glass {
+    background: color-mix(in oklab, var(--color-ink-800) 62%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  /* Hairline border that reads as machined metal */
+  .edge {
+    @apply border border-white/8;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+  }
+
+  .brand-text {
+    background: linear-gradient(100deg, var(--color-brand-300), var(--color-brand-500) 55%, var(--color-brand-600));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@layer utilities {
+  /* Fine engineering grid — the backdrop of the whole site */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .bg-grid-sm {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Diagonal hazard stripes — workshop signage cue */
+  .bg-hazard {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--color-brand-500) 0 14px,
+      transparent 14px 28px
+    );
+  }
+
+  /* Film grain, keeps large dark areas from banding */
+  .noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+
+  .text-shadow-hero {
+    text-shadow: 0 2px 40px rgb(0 0 0 / 0.55);
+  }
+
+  .paused { animation-play-state: paused; }
+}
+
+/* Respect the OS motion preference everywhere, including CSS animation */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
